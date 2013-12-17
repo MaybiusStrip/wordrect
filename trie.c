@@ -39,26 +39,31 @@ TrieNode *makeTrie(char* filename, ssize_t lenWord) {
 }
 
 
-void addWord(TrieNode *node, char *line) {
+void addWord(TrieNode *node, char *word) {
 
-  TrieEdge *edge = node->edges[*line];
+  // Recursive step
+  if (*word && *word != '\0' && *word != '\n') {
+    int charIndex = *word - 97;
 
-  printf("Current char %c\n", *line);
-  printf("Current isTerminal %d\n", node->isTerminal);
+    // Create edge for this character if it doesn't exist
+    if (node->edges[charIndex] == NULL) {
+      TrieEdge *edge = malloc(sizeof(TrieEdge));
+      edge->c = *word;
+      edge->numLeaves = 0;
+      edge->node = malloc(sizeof(TrieNode));
 
-  if (*line) {
-    if (node->edges[*line] == NULL) {
-      TrieEdge edge = { *line, 0, malloc(sizeof(TrieNode)) };
-      node->edges[*line] = &edge;
+      node->edges[charIndex] = edge;
     } 
 
-    node->edges[*line]->numLeaves++;
-    TrieNode *nextNode = node->edges[*line]->node;
-    addWord(nextNode, ++line);
+    // Follow edge and repeat for rest of the word
+    node->edges[charIndex]->numLeaves++;
+    TrieNode *nextNode = node->edges[charIndex]->node;
+    addWord(nextNode, ++word);
+
+  // Base case
   } else {
     node->isTerminal = 1;
   }
 
   return;
-
 }
