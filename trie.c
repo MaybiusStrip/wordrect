@@ -13,7 +13,6 @@
 #include "trie.h"
 
 
-/* Create a trie given a file and a word length */
 TrieNode *makeTrie(char* filename, ssize_t lenWord) {
 
   TrieNode *root = malloc(sizeof(TrieNode));
@@ -29,7 +28,7 @@ TrieNode *makeTrie(char* filename, ssize_t lenWord) {
 
   while ((lenLine = getline(&line, &lenAlloc, fp)) != -1) {
     if (lenLine - 1 == lenWord) {
-      addWord(root, line);
+      addWordToTrie(root, line);
     }
   }
 
@@ -39,7 +38,7 @@ TrieNode *makeTrie(char* filename, ssize_t lenWord) {
 }
 
 
-void addWord(TrieNode *node, char *word) {
+void addWordToTrie(TrieNode *node, char *word) {
 
   // Recursive step
   if (*word && *word != '\0' && *word != '\n') {
@@ -58,7 +57,7 @@ void addWord(TrieNode *node, char *word) {
     // Follow edge and repeat for rest of the word
     node->edges[charIndex]->numLeaves++;
     TrieNode *nextNode = node->edges[charIndex]->node;
-    addWord(nextNode, ++word);
+    addWordToTrie(nextNode, ++word);
 
   // Base case
   } else {
@@ -66,4 +65,67 @@ void addWord(TrieNode *node, char *word) {
   }
 
   return;
+}
+
+
+void sortTrie(TrieNode *node) {
+  
+  // PO: Put on stack until sorted
+  char sortedEdgeChars = malloc(LEN_ALPHABET * sizeof(char));
+  int sortedWeights[LEN_ALPHABET];
+
+  if (node->isTerminal) {
+    return;
+  }
+
+  int j = 0;
+  for (int i = 0; i < LEN_ALPHABET, i++) {
+    if (node->edges[i] != NULL) {
+      sortTrie(node->edges[i].node);
+      sortedEdgeChars[j] = node->edges[i].c;
+      sortedWeights[j] = node->edges[i].numLeaves;
+      j++;
+    }
+  }
+
+  void quickSort(sortedWeights, sortedEdgeChars, 0, j - 1);
+  sortedEdgeChars[j] = '\0';
+  realloc(sortedEdgeChars, (j + 1) * sizeof(char));
+  node->sortedEdges = sortedEdgeChars;
+}
+
+// quickSort that sorts the array of characters in parallel according to the
+// order of the weights
+void quickSort(int weights[], char characters[], int left, int right) {
+  int pivotIndex;
+
+  if( left < right ) {
+    pivotIndex = partition(weights, characters, left, right);
+    quickSort(weights, characters, left, pivotIndex - 1);
+    quickSort(weights, characters, pivotIndex + 1, right);
+  }
+}
+
+
+int partition(int weights[], char characters[], int left, int right) {
+  int pivot, i, j, swap;
+  pivot = weights[left];
+  i = left; j = right + 1;
+
+  while (1) {
+    do ++i; while (weights[i] <= pivot && i <= right);
+    do --j; while (weights[j] > pivot);
+    if (i >= j) break;
+    swap(weights, i, j);
+    swap(characters, i, j);
+  }
+  swap(weights, left, right);
+  swap(characters, left, right);
+  return j;
+}
+
+void swap(int array[], int i, int j) {
+  int temp = array[i];
+  array[i] = array[j];
+  array[j] = temp;
 }
