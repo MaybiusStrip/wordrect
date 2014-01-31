@@ -70,8 +70,8 @@ void addWordToTrie(TrieNode *node, char *word) {
 
 void sortTrie(TrieNode *node) {
   
-  // PO: Put on stack until sorted
-  char sortedEdgeChars = malloc(LEN_ALPHABET * sizeof(char));
+  // TODO: Optimize put on stack until sorted
+  char *sortedEdgeChars = malloc(LEN_ALPHABET * sizeof(char));
   int sortedWeights[LEN_ALPHABET];
 
   if (node->isTerminal) {
@@ -79,18 +79,19 @@ void sortTrie(TrieNode *node) {
   }
 
   int j = 0;
-  for (int i = 0; i < LEN_ALPHABET, i++) {
+  for (int i = 0; i < LEN_ALPHABET; i++) {
     if (node->edges[i] != NULL) {
-      sortTrie(node->edges[i].node);
-      sortedEdgeChars[j] = node->edges[i].c;
-      sortedWeights[j] = node->edges[i].numLeaves;
+      sortTrie(node->edges[i]->node);
+      sortedEdgeChars[j] = node->edges[i]->c;
+      sortedWeights[j] = node->edges[i]->numLeaves;
       j++;
     }
   }
 
-  void quickSort(sortedWeights, sortedEdgeChars, 0, j - 1);
+  quickSort(sortedWeights, sortedEdgeChars, 0, j - 1);
   sortedEdgeChars[j] = '\0';
   realloc(sortedEdgeChars, (j + 1) * sizeof(char));
+  /*printf("sorted %s\n", sortedEdgeChars);*/
   node->sortedEdges = sortedEdgeChars;
 }
 
@@ -108,24 +109,28 @@ void quickSort(int weights[], char characters[], int left, int right) {
 
 
 int partition(int weights[], char characters[], int left, int right) {
-  int pivot, i, j, swap;
+  int pivot, i, j;
   pivot = weights[left];
   i = left; j = right + 1;
 
   while (1) {
-    do ++i; while (weights[i] <= pivot && i <= right);
-    do --j; while (weights[j] > pivot);
+    do ++i; while (weights[i] > pivot && i <= right);
+    do --j; while (weights[j] <= pivot);
     if (i >= j) break;
-    swap(weights, i, j);
-    swap(characters, i, j);
+    swap(weights, characters, i, j);
   }
-  swap(weights, left, right);
-  swap(characters, left, right);
+  swap(weights, characters, left, j);
   return j;
 }
 
-void swap(int array[], int i, int j) {
-  int temp = array[i];
-  array[i] = array[j];
-  array[j] = temp;
+
+
+void swap(int iarray[], char carray[], int i, int j) {
+  int temp = iarray[i];
+  iarray[i] = iarray[j];
+  iarray[j] = temp;
+
+  temp = carray[i];
+  carray[i] = carray[j];
+  carray[j] = temp;
 }

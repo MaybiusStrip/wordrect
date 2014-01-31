@@ -19,7 +19,10 @@ typedef struct trieEdge {
 
 
 TrieNode *makeTrie(char* filename, ssize_t lenWord);
-void addWord(TrieNode *node, char *line);
-
+void addWordToTrie(TrieNode *node, char *line);
+void sortTrie(TrieNode *node);
+void quickSort(int weights[], char characters[], int left, int right);
+int partition(int weights[], char characters[], int left, int right);
+void swap(int iarray[], char carray[], int i, int j);
 
 #endif

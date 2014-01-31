@@ -2,6 +2,6 @@
 #include "trie.h"
 
 int main(void) {
-  TrieNode *node = makeTrie("WORDS.LST", 5);
+  TrieNode *node = makeTrie("WORDS.LST", 1);
   sortTrie(node);
 }
