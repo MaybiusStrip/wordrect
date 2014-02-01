@@ -2,10 +2,11 @@
 #include "trie.h"
 #include "trieIterator.h"
 
+
 const int wordLength = 5;
 
 int main(void) {
-  TrieNode *node = makeTrie("WORD.LST", wordLength);
+  TrieNode *node = makeTrie("wordlists/WORD.LST", wordLength);
   sortTrie(node);
   printf("%s\n", node->sortedEdgesByWeight);
   /*solveSquare(node, 0, char[wordLength + 1][wordLength])*/
