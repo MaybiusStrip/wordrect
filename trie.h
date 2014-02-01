@@ -7,7 +7,9 @@ struct trieEdge;
 
 typedef struct {
   int isTerminal;
-  char *sortedEdges; /* For O(n) traversal */
+  char *sortedEdgesByWeight;
+  char *sortedEdgesForTraversal; /* For O(n) traversal */
+  struct trieEdge *parent;
   struct trieEdge *edges[LEN_ALPHABET]; /* For 0(1) access */
 } TrieNode;
 

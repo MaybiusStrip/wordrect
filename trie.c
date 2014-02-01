@@ -67,7 +67,7 @@ void addWordToTrie(TrieNode *node, char *word) {
   return;
 }
 
-
+// Traverse the tree sorting sorting children by their weights in
 void sortTrie(TrieNode *node) {
   
   // TODO: Optimize put on stack until sorted
@@ -90,10 +90,10 @@ void sortTrie(TrieNode *node) {
 
   quickSort(sortedWeights, sortedEdgeChars, 0, j - 1);
   sortedEdgeChars[j] = '\0';
-  realloc(sortedEdgeChars, (j + 1) * sizeof(char));
-  /*printf("sorted %s\n", sortedEdgeChars);*/
-  node->sortedEdges = sortedEdgeChars;
+  sortedEdgeChars = realloc(sortedEdgeChars, (j + 1) * sizeof(char));
+  node->sortedEdgesByWeight = sortedEdgeChars;
 }
+
 
 // quickSort that sorts the array of characters in parallel according to the
 // order of the weights
@@ -107,23 +107,20 @@ void quickSort(int weights[], char characters[], int left, int right) {
   }
 }
 
-
 int partition(int weights[], char characters[], int left, int right) {
   int pivot, i, j;
   pivot = weights[left];
   i = left; j = right + 1;
 
   while (1) {
-    do ++i; while (weights[i] > pivot && i <= right);
-    do --j; while (weights[j] <= pivot);
+    do ++i; while (weights[i] >= pivot && i <= right);
+    do --j; while (weights[j] < pivot);
     if (i >= j) break;
     swap(weights, characters, i, j);
   }
   swap(weights, characters, left, j);
   return j;
 }
-
-
 
 void swap(int iarray[], char carray[], int i, int j) {
   int temp = iarray[i];
