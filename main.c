@@ -12,14 +12,27 @@ int main(void) {
   /*solveSquare(node, 0, char[wordLength + 1][wordLength])*/
 }
 
-/*solveSquare(TrieNode *node, int index, char *result) {*/
-  /*if (index == wordsquare - 1) {*/
-    /*printf("done");*/
-  /*}*/
+solveSquare(TrieNode *wordTrie, int index, char *solution[]) {
+  if (index == wordLength - 1) {
+    printf("done");
+    return solution;
+  }
 
-  /*firstWord = */
+  TrieIterator *iter = makeTrieIterator(solution, wordTrie);
+  char* word = iter->next();
+  index++;
 
-  
-/*}*/
+  while (word) {
+    solution[index - 1] = word;
+    char *potentialSolution[wordLength] = solveSquare;
+    if (solveSquare != null) {
+      return potentialSolution;
+    } else {
+      solution = iter->next();
+    }
+  }
+
+  return NULL;
+}
 
 
