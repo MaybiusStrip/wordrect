@@ -1,0 +1,2 @@
+bin_PROGRAMS = wordsquare
+wordsquare_SOURCES = main.c sort.c sort.h trie.c trie.h 
