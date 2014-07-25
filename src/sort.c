@@ -15,8 +15,8 @@ void sortCharactersByWeight(int weights[], char characters[], int left, int righ
 
   if( left < right ) {
     pivotIndex = partition(weights, characters, left, right);
-    quickSort(weights, characters, left, pivotIndex - 1);
-    quickSort(weights, characters, pivotIndex + 1, right);
+    sortCharactersByWeight(weights, characters, left, pivotIndex - 1);
+    sortCharactersByWeight(weights, characters, pivotIndex + 1, right);
   }
 }
 
