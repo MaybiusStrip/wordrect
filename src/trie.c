@@ -13,7 +13,15 @@
 #include "sort.h"
 
 
-TrieNode *makeTrie(char* filename, ssize_t lenWord) {
+/*
+ * Build a trie of a certain wordsize
+ * params:
+ *    filename: filename of the dictionary
+ *    lenWord: length of words to be stored in trie
+ * returns: 
+ *     the root of the trie
+ */
+TrieNode *trie_constructor(char* filename, ssize_t lenWord) {
 
   TrieNode *root = malloc(sizeof(TrieNode));
   root->isTerminal = 0;
@@ -38,7 +46,13 @@ TrieNode *makeTrie(char* filename, ssize_t lenWord) {
 }
 
 
-void addWordToTrie(TrieNode *node, char *word) {
+/*
+ * Add a word to the trie (recursive)
+ * params:
+ *    node: the trie to add a word to
+ *    word: the word to add
+ */
+void trie_addWord(TrieNode *node, char *word) {
 
   // Recursive step
   if (*word && *word != '\0' && *word != '\n') {
@@ -67,8 +81,13 @@ void addWordToTrie(TrieNode *node, char *word) {
   return;
 }
 
-// Traverse the tree sorting sorting children by their weights in
-void sortTrie(TrieNode *node) {
+/*
+ * For each node in the trie, store a sorted array of the characters
+ * based on the number of children for that character
+ * params:
+ *   node: the trie to sort
+ */
+void trie_sort(TrieNode *node) {
   
   // TODO: Optimize put on stack until sorted
   char *sortedEdgeChars = malloc(LEN_ALPHABET * sizeof(char));
