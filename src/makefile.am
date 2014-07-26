@@ -1,2 +1,10 @@
+ACLOCAL_AMFLAGS = -I m4
+
+lib_LTLIBRARIES = lib_sort.la lib_trie.la
+lib_sort_la_SOURCES = sort.c sort.h
+lib_trie_la_SOURCES = trie.c trie.h
+lib_trie_la_LIBADD = lib_sort.la
+
 bin_PROGRAMS = wordsquare
-wordsquare_SOURCES = main.c sort.c sort.h trie.c trie.h 
+wordsquare_SOURCES = main.c
+wordsquare_LDADD = lib_trie.la

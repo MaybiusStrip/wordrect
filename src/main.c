@@ -6,8 +6,8 @@
 const int wordLength = 5;
 
 int main(void) {
-  TrieNode *node = makeTrie("wordlists/WORD.LST", wordLength);
-  sortTrie(node);
+  TrieNode *node = trie_constructor("wordlists/WORD.LST", wordLength);
+  trie_sort(node);
   printf("%s\n", node->sortedEdgesByWeight);
   /*solveSquare(node, 0, char[wordLength + 1][wordLength])*/
 }

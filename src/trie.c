@@ -36,7 +36,7 @@ TrieNode *trie_constructor(char* filename, ssize_t lenWord) {
 
   while ((lenLine = getline(&line, &lenAlloc, fp)) != -1) {
     if (lenLine - 1 == lenWord) {
-      addWordToTrie(root, line);
+      trie_addWord(root, line);
     }
   }
 
@@ -71,7 +71,7 @@ void trie_addWord(TrieNode *node, char *word) {
     // Follow edge and repeat for rest of the word
     node->edges[charIndex]->numLeaves++;
     TrieNode *nextNode = node->edges[charIndex]->node;
-    addWordToTrie(nextNode, ++word);
+    trie_addWord(nextNode, ++word);
 
   // Base case
   } else {
@@ -100,7 +100,7 @@ void trie_sort(TrieNode *node) {
   int j = 0;
   for (int i = 0; i < LEN_ALPHABET; i++) {
     if (node->edges[i] != NULL) {
-      sortTrie(node->edges[i]->node);
+      trie_sort(node->edges[i]->node);
       sortedEdgeChars[j] = node->edges[i]->c;
       sortedWeights[j] = node->edges[i]->numLeaves;
       j++;
