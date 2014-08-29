@@ -34,3 +34,6 @@ ltmain.sh
 /c/src/*.la
 /c/src/*.lo
 
+#npm
+/js/node_modules
+

@@ -1,0 +1,14 @@
+{
+  "name": "wordrect.js",
+  "version": "0.0.0",
+  "description": "Word rectangle solver in javascript.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Martin Wintz",
+  "license": "ISC",
+  "dependencies": {
+    "lazy": "^1.0.11"
+  }
+}
