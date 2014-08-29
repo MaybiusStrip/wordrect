@@ -7,30 +7,30 @@ wordsquare
 Debug
 
 # autotools
-/autom4te.cache
-/aclocal.m4
-/compile
-/configure
-/depcomp
-/install-sh
-/missing
-/stamp-h1
+/c/autom4te.cache
+/c/aclocal.m4
+/c/compile
+/c/configure
+/c/depcomp
+/c/install-sh
+/c/missing
+/c/stamp-h1
 config.h
 config.h.in
 config.log
 config.status
 makefile
 makefile.in
-/src/.deps
-/src/*.o
-/src/.libs
+/c/src/.deps
+/c/src/*.o
+/c/src/.libs
 ar-lib
 config.guess
 config.h.in~
 config.sub
 libtool
 ltmain.sh
-/m4
-/src/*.la
-/src/*.lo
+/c/m4
+/c/src/*.la
+/c/src/*.lo
 
