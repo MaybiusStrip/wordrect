@@ -1,3 +1,6 @@
+var WordSquareSolution = require('./WordSquareSolution');
+var SolutionIterator = require('./SolutionIterator');
+
 function WordSquareSolver(trie, size) {
   this.size = size;
   this.trie = trie;
@@ -16,7 +19,7 @@ WordSquareSolver.prototype.solve = function (solution) {
     return solution;
   }
 
-  var iter = new SolutionIterator(solution);
+  var iter = new SolutionIterator(solution, this.trie);
 
   var nextCandidateWord = iter.next();
   while (nextCandidateWord) {
@@ -33,5 +36,5 @@ WordSquareSolver.prototype.solve = function (solution) {
 
 };
 
-
+module.exports = WordSquareSolver;
 

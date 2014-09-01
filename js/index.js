@@ -1,9 +1,11 @@
-var TrieNode = require('./lib/TrieNode');
-var fs = require('fs');
-var Lazy = require('lazy');
+var trieFactory = require('./lib/trieFactory');
+var WordSquareSolver = require('./lib/WordSquareSolver');
 
-_createTrie('./WORD.LST', 4, function (err, trie) {
+
+trieFactory.createTrieFromFile('./WORD.LST', 4, function (err, trie) {
   if (err) { return console.err(err); }
-  console.log(trie.hasWord('zyme'));
+  solver = new WordSquareSolver(trie, 4);
+  var solution = solver.solve();
+  console.log(solution.toString());
 });
 

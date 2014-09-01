@@ -30,6 +30,27 @@ describe('SolutionIterator', function () {
       var solutionIterator = new SolutionIterator(solution, trie);
 
       solutionIterator.next().toString().should.equal('bcd');
+      (solutionIterator.next() === null).should.be.true;
+    });
+
+    it('should return a valid solution, then a valid solution, and then null if there are two valid solutions', function () {
+      var trie = trieFactory.createTrieFromList(['abc', 'bcd', 'bce', 'cde', 'cee']);
+      var solution = _createSolution(3, trie, ['abc']);
+      var solutionIterator = new SolutionIterator(solution, trie);
+
+      solutionIterator.next().toString().should.equal('bcd');
+      solutionIterator.next().toString().should.equal('bce');
+      (solutionIterator.next() === null).should.be.true;
+    });
+
+    it('should return valid solutions when starting with an empty solution', function () {
+      var trie = trieFactory.createTrieFromList(['abc', 'bcd', 'cde', 'def']);
+      var solution = _createSolution(3, trie, []);
+      var solutionIterator = new SolutionIterator(solution, trie);
+
+      solutionIterator.next().toString().should.equal('abc');
+      solutionIterator.next().toString().should.equal('bcd');
+      (solutionIterator.next() === null).should.be.true;
     });
 
   });

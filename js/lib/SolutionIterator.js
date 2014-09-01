@@ -12,7 +12,7 @@
 //    "A C [x] [y]" has to be a valid word
 //    "A C [x]" and "N E [y]" have to be valid prefixes
 function SolutionIterator(solution, trie) {
-  this.currentNode = solution.getPrefixAtPosition(solution.getCurrentSize());
+  this.currentNode = solution.getPrefixAtPosition(solution.getCurrentSize()) || trie;
   this.solution = solution;
   this.trie = trie;
   this.counters = [];
@@ -31,7 +31,8 @@ SolutionIterator.prototype.next = function () {
 
     if (this.counters[depth] >= 26) {
       this.currentNode = this.currentNode.parent;
-      if (!this.currentNode) { return null; }
+      this.counters[depth] = -1;
+      if (!this.currentNode || (this.currentNode.depth < this.solution.getCurrentSize())) { return null; }
       else { continue; }
     }
 
@@ -40,7 +41,7 @@ SolutionIterator.prototype.next = function () {
 
     if (!childNode) { continue; }
     var horizontalPrefix = this.solution.getPrefixAtPosition(depth);
-    var nextHorizontalPrefix = horizontalPrefix + childNode.character;
+    var nextHorizontalPrefix = (horizontalPrefix || '') + childNode.character;
     if (!this.trie.hasPrefix(nextHorizontalPrefix)) { continue; }
     if (childNode.isTerminal) { return childNode; }
     else { this.currentNode = childNode; }
