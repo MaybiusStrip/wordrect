@@ -9,6 +9,9 @@
   "author": "Martin Wintz",
   "license": "ISC",
   "dependencies": {
-    "lazy": "^1.0.11"
+    "lazy": "^1.0.11",
+    "lodash": "^2.4.1",
+    "mocha": "^1.21.4",
+    "should": "^4.0.4"
   }
 }
